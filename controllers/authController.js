@@ -36,46 +36,6 @@ exports.protected = async (req, res, next) => {
 };
 
 exports.changePassword = async (req, res) => {
-  /*
-
-  try {
-    console.log(req.user_id);
-    var dbresult = await dbquery(
-      "SELECT password FROM users where id = ?",
-      req.user_id
-    );
-  } catch (err) {
-    return res.json({
-      success: false,
-      message: err,
-    });
-  }
-  console.log(` ${dbresult}`);
-  var hash = dbresult[0].password;
-  console.log(`hash ${hash}`);
-
-  var currentPassword = req.body.currentPassword;
-  var newPassword = req.body.newPassword;
-  bcrypt.compare(currentPassword, hash);
-
-  var newhash = bcrypt.hash(newPassword, 10);
-  try {
-    await dbquery(`UPDATE \`users\` SET  ? WHERE id = "${req.user_id}"`, {
-      password: newhash,
-    });
-    res.json({
-      success: true,
-      message: "Password changed",
-    });
-  } catch (err) {
-    res.json({
-      success: false,
-      message: "Current password is wrong",
-    });
-  }
-
-  */
-
   const query = "SELECT password FROM users where id = ?";
   con.query(query, req.user_id, (err, dbresult) => {
     if (err) {
