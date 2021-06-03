@@ -31,7 +31,7 @@ exports.protected = async (req, res, next) => {
   } catch (err) {
     res.status(401).json({
       success: false,
-      message: "You are not Logged in",
+      message: "You are not Logged in to this system",
     });
   }
 };
