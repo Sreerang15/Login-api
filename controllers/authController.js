@@ -10,15 +10,15 @@ const dbquery = promisify(con.query).bind(con);
 
 exports.protected = async (req, res, next) => {
   let token = req.headers["x-access-token"] || req.headers.authorization;
-  console.log(token.startsWith("Bearer "));
-  if (token.startsWith("Bearer ")) {
-    // Remove Bearer from string
-    token = token.slice(7, token.length);
-  }
-
-  var decoded = await promisify(jwt.verify)(token, "secretkey");
-
+  //console.log(token.startsWith("Bearer "));
   try {
+    if (token.startsWith("Bearer ")) {
+      // Remove Bearer from string
+      token = token.slice(7, token.length);
+    }
+
+    var decoded = await promisify(jwt.verify)(token, "secretkey");
+
     const user = await dbquery(
       "SELECT first_name, email FROM users where id = ?",
       decoded.sub

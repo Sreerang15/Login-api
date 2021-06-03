@@ -2,9 +2,10 @@ const express = require("express");
 const userController = require("./../controllers/userController");
 const authController = require("../controllers/authController");
 const validation = require("../helpers/validate");
-const multer = require("../server");
 
 const router = express.Router();
+
+router.get("/me", userController.getAllUsers);
 
 router.post(
   "/signup",
@@ -12,7 +13,12 @@ router.post(
   authController.signup
 );
 router.post("/login", authController.login);
-//router.post("/upload", multer.upload.single("file"), userController.fileUpload);
+router.post(
+  "/upload",
+  //authController.protected,
+  userController.uploadUserPhoto,
+  userController.uploadUserImage
+);
 router.patch(
   "/change-password",
   authController.protected,
